@@ -1,9 +1,95 @@
 electionFacilitator => 0x441c1248377F3676BA844b24E53A72DaC8B6b2C7
-contract address 1 => 0x6C1eFc37F4D9EC6212Da4650B466E9B19DFe99a2
+
+entropy => ab19b0620014e3832dbdf547c1a4f4df;
+
+80 voters contract address => 0x67B19f76aac8F150471BE9d8EE538557A1f10e83
+80 voters txHash creation => 0x7f8e2bbf9ba5d1437a3a95fde3d86883a1241d3645351eb76d5985c7d66ae819
+
+
+random toddler quarter measure table belt valley parade excess uphold fis
 
 
 
-contract address 2 => 0xe209b50A3A9c1d2054Da11A0144E854707c7A205
-
-
-random toddler quarter measure table belt valley parade excess uphold fiscal network
+[ { vin: '36994569', firstName: 'Liza', lastName: 'Emard' },           //*
+  { vin: '96580481', firstName: 'Carli', lastName: 'Towne' },          //*
+  { vin: '08408768', firstName: 'Stanley', lastName: 'O\'Hara' },      //*
+  { vin: '12798080', firstName: 'Tania', lastName: 'Bogan' },          //*
+  { vin: '46866002', firstName: 'Murray', lastName: 'Daugherty' },     //*
+  { vin: '03615543', firstName: 'Bernhard', lastName: 'Lueilwitz' },   //*
+  { vin: '88001900', firstName: 'Edmund', lastName: 'Gorczany' },      //*
+  { vin: '35797333', firstName: 'Sedrick', lastName: 'Stiedemann' },   //*
+  { vin: '72662251', firstName: 'Justen', lastName: 'Rohan' },         //*
+  { vin: '55166458', firstName: 'Xander', lastName: 'Kilback' },       //*
+  { vin: '39064867', firstName: 'Sid', lastName: 'Tillman' },          //*
+  { vin: '96225904', firstName: 'Filomena', lastName: 'Hackett' },     //*
+  { vin: '80729585', firstName: 'Nikita', lastName: 'Jerde' },         //*
+  { vin: '42210431', firstName: 'Ruth', lastName: 'Rice' },            //*
+  { vin: '53744885', firstName: 'Wilburn', lastName: 'Roberts' },      //
+  { vin: '23844113', firstName: 'Joelle', lastName: 'Ratke' },         //
+  { vin: '84564647', firstName: 'Albin', lastName: 'Herzog' },         //
+  { vin: '77397480', firstName: 'Elody', lastName: 'Beer' },           //
+  { vin: '50461757', firstName: 'Price', lastName: 'Terry' },          //
+  { vin: '79159849', firstName: 'Manuela', lastName: 'Heathcote' },    //
+  { vin: '99092154', firstName: 'Ewell', lastName: 'Rempel' },         //
+  { vin: '94410099', firstName: 'Aaliyah', lastName: 'Balistreri' },   //
+  { vin: '05720689', firstName: 'Faustino', lastName: 'Walter' },      //    
+  { vin: '27970380', firstName: 'Aimee', lastName: 'Jaskolski' },      //
+  { vin: '16341300', firstName: 'Marjolaine', lastName: 'Weimann' },   //
+  { vin: '38029251', firstName: 'Dolly', lastName: 'Greenholt' },      //
+  { vin: '99769572', firstName: 'Dalton', lastName: 'Orn' },           //
+  { vin: '52092360', firstName: 'Lucinda', lastName: 'Crooks' },
+  { vin: '17459717', firstName: 'Chadd', lastName: 'Kohler' },
+  { vin: '98594685', firstName: 'Kiana', lastName: 'Casper' },
+  { vin: '25033710', firstName: 'Remington', lastName: 'Mante' },
+  { vin: '20160434', firstName: 'Mathilde', lastName: 'Abbott' },
+  { vin: '57767932', firstName: 'Amy', lastName: 'Lakin' },
+  { vin: '16610033', firstName: 'Virginie', lastName: 'Ruecker' },
+  { vin: '22365492',
+    firstName: 'Charlotte',
+    lastName: 'O\'Reilly' },
+  { vin: '39701197', firstName: 'Gavin', lastName: 'Yost' },
+  { vin: '91748033', firstName: 'Calista', lastName: 'Goldner' },
+  { vin: '20904744', firstName: 'Tressie', lastName: 'Kunde' },
+  { vin: '07319959', firstName: 'Caden', lastName: 'Watsica' },
+  { vin: '57019241', firstName: 'Lina', lastName: 'Frami' },
+  { vin: '99571912', firstName: 'Libby', lastName: 'Nitzsche' },
+  { vin: '97907962', firstName: 'Floyd', lastName: 'Trantow' },
+  { vin: '21241118', firstName: 'Tremayne', lastName: 'Rau' },
+  { vin: '42506010', firstName: 'Adriel', lastName: 'Satterfield' },
+  { vin: '70413963', firstName: 'Kip', lastName: 'Mante' },
+  { vin: '01200035', firstName: 'Augustus', lastName: 'Ullrich' },
+  { vin: '55777002', firstName: 'Marisa', lastName: 'Haag' },
+  { vin: '11090316', firstName: 'Melany', lastName: 'Heaney' },
+  { vin: '06447495', firstName: 'Justen', lastName: 'VonRueden' },
+  { vin: '90293402', firstName: 'Mustafa', lastName: 'Pagac' },
+  { vin: '36403293', firstName: 'Eudora', lastName: 'Turner' },
+  { vin: '32630896', firstName: 'Aidan', lastName: 'Kilback' },
+  { vin: '69634330', firstName: 'Clemmie', lastName: 'Howell' },
+  { vin: '56122375', firstName: 'Malcolm', lastName: 'Raynor' },
+  { vin: '18468103', firstName: 'Mervin', lastName: 'Rowe' },
+  { vin: '02259586', firstName: 'Michele', lastName: 'Dibbert' },
+  { vin: '58594766', firstName: 'Ignacio', lastName: 'Veum' },
+  { vin: '30933825', firstName: 'Domenico', lastName: 'Toy' },
+  { vin: '95242368', firstName: 'Santos', lastName: 'McLaughlin' },
+  { vin: '48684017', firstName: 'Maxime', lastName: 'Cartwright' },
+  { vin: '54743395', firstName: 'Abelardo', lastName: 'Johns' },
+  { vin: '70705216', firstName: 'Austyn', lastName: 'Murphy' },
+  { vin: '58759683', firstName: 'Jacynthe', lastName: 'Haley' },
+  { vin: '76780419', firstName: 'Kelsi', lastName: 'King' },
+  { vin: '56346500', firstName: 'Emerson', lastName: 'Bins' },
+  { vin: '71386588', firstName: 'Jevon', lastName: 'Hansen' },
+  { vin: '28252227', firstName: 'Dewitt', lastName: 'Doyle' },
+  { vin: '44386646', firstName: 'Muriel', lastName: 'Watsica' },
+  { vin: '71912422', firstName: 'Elisha', lastName: 'Runolfsson' },
+  { vin: '89825391', firstName: 'Charlotte', lastName: 'Schumm' },
+  { vin: '69525713', firstName: 'Earlene', lastName: 'Conn' },
+  { vin: '12976964', firstName: 'Zackary', lastName: 'Sporer' },
+  { vin: '11200212', firstName: 'Marlon', lastName: 'Herman' },
+  { vin: '63004852', firstName: 'Hailey', lastName: 'Vandervort' },
+  { vin: '60393852', firstName: 'Paula', lastName: 'Grady' },
+  { vin: '31093959', firstName: 'Marques', lastName: 'Torp' },
+  { vin: '29992977', firstName: 'Jacky', lastName: 'Gleichner' },
+  { vin: '16687499', firstName: 'Paige', lastName: 'Murazik' },
+  { vin: '89397656', firstName: 'Hilario', lastName: 'Hudson' },
+  { vin: '62408942', firstName: 'Annetta', lastName: 'Conn' } ]
+[ '0x441c1248377F3676BA844b24E53A72DaC8B6b2C7' ]

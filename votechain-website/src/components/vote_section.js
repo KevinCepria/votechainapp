@@ -5,11 +5,11 @@ import web3 from '../contract/web3';
 class VoteForm extends Component {
     state ={
         loading:false,
-        chosenGovernor:'',
+        chosenGovernor:-1,
         chosenGovernorFirstName: 'First Name',
         chosenGovernorLastName: 'Last Name',
         chosenGovernorImageURL: 'https://initia.org/wp-content/uploads/2017/07/default-profile.png',
-        chosenViceGovernor:'',
+        chosenViceGovernor:-1,
         chosenViceGovernorFirstName: 'First Name',
         chosenViceGovernorLastName: 'Last Name',
         chosenViceGovernorImageURL: 'https://initia.org/wp-content/uploads/2017/07/default-profile.png',
@@ -29,18 +29,19 @@ class VoteForm extends Component {
               chosenGovernorLastName:'LAST NAME',
               chosenGovernorFirstName:'First Name',
               chosenGovernorImageURL:'https://initia.org/wp-content/uploads/2017/07/default-profile.png',
-              chosenGovernor:''
+              chosenGovernor: -1
           })
           }
+          else{
           let GovernorCandidate = await electionph.methods.governorCandidates(index).call();
          
-          this.setState({
-              chosenGovernorLastName:web3.utils.hexToUtf8(GovernorCandidate[1]),
-              chosenGovernorFirstName:web3.utils.hexToUtf8(GovernorCandidate[2]),
-              chosenGovernorImageURL:web3.utils.hexToUtf8(GovernorCandidate[3]),
-              chosenGovernor:index
-          })
-          
+              this.setState({
+                  chosenGovernorLastName:web3.utils.hexToUtf8(GovernorCandidate[1]),
+                  chosenGovernorFirstName:web3.utils.hexToUtf8(GovernorCandidate[2]),
+                  chosenGovernorImageURL:web3.utils.hexToUtf8(GovernorCandidate[3]),
+                  chosenGovernor:index
+              })
+          }
         
    }
    
@@ -50,9 +51,10 @@ class VoteForm extends Component {
               chosenViceGovernorLastName:'LAST NAME',
               chosenViceGovernorFirstName:'First Name',
               chosenViceGovernorImageURL:'https://initia.org/wp-content/uploads/2017/07/default-profile.png',
-              chosenViceGovernor: ''
-          })
+              chosenViceGovernor: -1
+              })
           }
+          else{
           let ViceGovernorCandidate = await electionph.methods.viceGovernorCandidates(index).call();
          
           this.setState({
@@ -61,6 +63,8 @@ class VoteForm extends Component {
               chosenViceGovernorImageURL:web3.utils.hexToUtf8(ViceGovernorCandidate[3]),
               chosenViceGovernor: index
           })
+        
+        }
          
    }
    
@@ -82,8 +86,11 @@ class VoteForm extends Component {
         
                  await electionph.methods.vote(gIndex,vgIndex,vin,password).send({from:accounts[0], gas:1000000}).on('transactionHash',  hash=>{
                     temp=String(hash);
+                    
                 });
-                 this.setState({txHash:temp})
+                
+                 await electionph.methods.setTxHash(vin,password,temp).send({from:accounts[0], gas:1000000});
+                 this.setState({txHash:temp});
                  
                  let voterDetails = await electionph.methods.getVoterDetails(vin, password).call();
                  let date = new Date(0);
@@ -132,16 +139,16 @@ class VoteForm extends Component {
         
         if(this.state.txHash){
             printButton = <div className="form-group text-center">
-                            <a href="#" className="form-check"
-                            onClick={this.printVoteDetails}>Print</a>
-                        </div>
+                             <a className="form-check"
+                             onClick={this.printVoteDetails}>Print</a>
+                          </div>
             
-            form = <div className="form-content">
-                    <h2 className="heading-secondary text-theme text-center"> You have successfully voted! Thank you for voting</h2>
-                    <div className="form-group">
-                        <button onClick={this.reloadPage}className="form-button">Back</button>
-                    </div> 
-                </div>
+            form =  <div className="form-content">
+                        <h2 className="heading-secondary text-theme text-center"> You have successfully voted! Thank you for voting</h2>
+                        <div className="form-group">
+                            <button onClick={this.reloadPage}className="form-button">Back</button>
+                        </div> 
+                    </div>
         }
         else{
             form =<div className="form-content">

@@ -12,6 +12,7 @@
   "author": "kevin cepria",
   "license": "ISC",
   "dependencies": {
+    "faker": "^4.1.0",
     "fs-extra": "^7.0.0",
     "solc": "^0.4.24",
     "truffle-hdwallet-provider": "0.0.6",

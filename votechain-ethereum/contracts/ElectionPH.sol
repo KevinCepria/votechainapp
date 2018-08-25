@@ -1,139 +1,226 @@
 pragma solidity ^0.4.24;
 
+
 contract ElectionPH{
     
-    address electionFacilitator;
+    address private electionFacilitator;
+    address private electionVoter;
     bool public isOpen;
-    uint public openedDate;
+    bool public isOver;
+    uint8 numGovernorCandidates;
+    uint8 numViceGovernorCandidates;
     
     struct Candidates {
         uint8  candidateID;
-        string lastName;
-        string firstName;
-        string middleName;
+        bytes32 lastName;
+        bytes32 firstName;
+        bytes32 imageURL;
         uint32 voteCount;
     }
     
     struct voter{
-        string votersIDNum;
-        Candidates chosenPresident;
-        Candidates chosenvicePresident;
+        bytes32 firstName;
+        bytes32 lastName;
+        Candidates chosenGovernor;
+        Candidates chosenViceGovernor;
         bool hasVoted;
         bool registered;
-        uint32 dateTime;
+        bool inComelec;
+        uint dateTimeVoted;
+        // uint8 age;
+        bytes32 password;
+        bytes32 txHash;
     } 
     
-    mapping (address => voter) public voters;
+    // mapping (string => voter) public txHash;
+    mapping (bytes32 => voter) private voters;
 
-    
     uint32 public totalVotes;
-    uint32 public registeredVoters;
+    uint32 public totalRegisteredVoters;
+    uint32 public totalVotechainVoters;
     
     
-    Candidates[5] public presidentialCandidates;
-    Candidates[5] public vicePresidentialCandidates;
+    Candidates[] public governorCandidates;
+    Candidates[] public viceGovernorCandidates;
     
     
-    constructor (uint32 numVoters) public {
+    constructor (
+                bytes32[] vin,
+                bytes32[] firstName, 
+                bytes32[] lastName, 
+                //   uint8[] age, 
+                  uint32 numVoters,
+                bytes32[] governorFirstName,
+                bytes32[] governorLastName,
+                bytes32[] governorUrlImage,
+                uint8 numGovernors,
+                bytes32[] viceGovernorFirstName,
+                bytes32[] viceGovernorLastName,
+                bytes32[] viceGovernorUrlImage,
+                uint8 numViceGovernors
+               ) public {
+
         
-        registeredVoters = numVoters;
+        totalVotechainVoters = 0;
         electionFacilitator = msg.sender;
+        electionVoter = 0x089b9e8a5e8b41c5f70278b0fc25b779d3d69fc4;
         isOpen = false;
+        isOver = false;
         totalVotes = 0;
+        numGovernorCandidates = numGovernors;
+        numViceGovernorCandidates = numViceGovernors;
         
-        presidentialCandidates[0] = Candidates({candidateID: 0, lastName: "Cepria", firstName: "Kevin Jeff", middleName: "Torres", voteCount:0});
-        presidentialCandidates[1] = Candidates({candidateID: 1, lastName: "Liwag", firstName: "Ryan Joshua", middleName: "Hontomin", voteCount:0});
-        presidentialCandidates[2] = Candidates({candidateID: 2, lastName: "Rapio", firstName: "Anfernee", middleName: "Solomon", voteCount:0});
-        presidentialCandidates[3] = Candidates({candidateID: 2, lastName: "Santillan", firstName: "Melchor", middleName: "Sugue", voteCount:0});
-        presidentialCandidates[4] = Candidates({candidateID: 4, lastName: "Zarzoso", firstName: "Aaron John", middleName: "Pascual", voteCount:0});
+        temp(vin, firstName, lastName,numVoters);
         
-        vicePresidentialCandidates[0] = Candidates({candidateID: 0, lastName: "Azarraga", firstName: "Ejnar Ejaye", middleName: "", voteCount:0});
-        vicePresidentialCandidates[1] = Candidates({candidateID: 1, lastName: "Del Rosario", firstName: "Aldwin", middleName: "", voteCount:0});
-        vicePresidentialCandidates[2] = Candidates({candidateID: 2, lastName: "Jarabelo", firstName: "Adrian Benjamin", middleName: "", voteCount:0});
-        vicePresidentialCandidates[3] = Candidates({candidateID: 3, lastName: "Guevarra", firstName: "Gervin Ernest", middleName: "", voteCount:0});
-        vicePresidentialCandidates[4] = Candidates({candidateID: 4, lastName: "Tan", firstName: "Sidney Sheldon", middleName: "", voteCount:0});
-        
-        // voters[0x441c1248377F3676BA844b24E53A72DaC8B6b2C7].votersIDNum="30220201BC0272ESA20000";voters[0x441c1248377F3676BA844b24E53A72DaC8B6b2C7].registered=true;
-        // voters[0x089b9e8a5e8B41C5F70278B0fc25b779d3d69fC4].votersIDNum="60261201FC0272ESZ20439";voters[0x089b9e8a5e8B41C5F70278B0fc25b779d3d69fC4].registered=true;
-        // voters[0x2538B34C0F3E43A58b9dE6f64A823cfcafdC1c5A].votersIDNum="40222201LC2272ESD20000";voters[0x2538B34C0F3E43A58b9dE6f64A823cfcafdC1c5A].registered=true;
-        // voters[0x8eCC871Aa1f57607562a3155529842847de79e01].votersIDNum="50223201BC6272ESB20650";voters[0x8eCC871Aa1f57607562a3155529842847de79e01].registered=true;
-        // voters[0x432ddC762F9c88c9a2633ea8ed7aE1095a7B42cf].votersIDNum="70524201VC0272ESA20010";voters[0x432ddC762F9c88c9a2633ea8ed7aE1095a7B42cf].registered=true;
-        // voters[0x90f8FE16FB06D183aBA8368DcB102f39d9cB5630].votersIDNum="80220201BC5272ESR20000";voters[0x90f8FE16FB06D183aBA8368DcB102f39d9cB5630].registered=true;
-        // voters[0x4245Ec72B130Da27e8E6A288A580dCA0ab1521E5].votersIDNum="60220201AC0272EST20000";voters[0x4245Ec72B130Da27e8E6A288A580dCA0ab1521E5].registered=true;
-        // voters[0x2192CFcF1A6959D22c58142dd58A20656F1de4CC].votersIDNum="30220201BC0272ESM20101";voters[0x2192CFcF1A6959D22c58142dd58A20656F1de4CC].registered=true;
-        // voters[0xBBF6c38260909388023b17CA99F42a5aB4dEcf74].votersIDNum="70228201XC0272ESL20202";voters[0xBBF6c38260909388023b17CA99F42a5aB4dEcf74].registered=true;
-        // voters[0x35D0075DfF8ab3c1D1666D248207bd796C74855b].votersIDNum="50220201CC0272ESA20303";voters[0x35D0075DfF8ab3c1D1666D248207bd796C74855b].registered=true;
-        // voters[0x50788961307F614eACCb6AC7d609f5BE3043eBe3].votersIDNum="30223201AC0272ESA20404";voters[0x50788961307F614eACCb6AC7d609f5BE3043eBe3].registered=true;
-        // voters[0xA96690D8A56a989F8be5a0Cc902563be0aE96f61].votersIDNum="50224201LC0272ESX20505";voters[0xA96690D8A56a989F8be5a0Cc902563be0aE96f61].registered=true;
-        // voters[0x8c82BcD893caf12992426F8531B8524a8364482a].votersIDNum="20225201EC0272ESY20606";voters[0x8c82BcD893caf12992426F8531B8524a8364482a].registered=true;
-        // voters[0xE0Fb11c9909266df739D9D8e44A6F192598aF189].votersIDNum="30226201BC0272ESA20707";voters[0xE0Fb11c9909266df739D9D8e44A6F192598aF189].registered=true;
-        // voters[0x8a784DDE47F0c6042Bf1bc7f7E07EB5fBbCCBF30].votersIDNum="70227201CC0272ESO20808";voters[0x8a784DDE47F0c6042Bf1bc7f7E07EB5fBbCCBF30].registered=true;
+        for(uint8 j =0; j<numGovernors; j++){
+            governorCandidates.push(Candidates({
+                candidateID: j,
+                imageURL: governorUrlImage[j],
+                firstName: governorFirstName[j],
+                lastName: governorLastName[j],
+                voteCount: 0
+            }));
         }
+        
+        for(uint8 z =0; z<numViceGovernors; z++){
+            viceGovernorCandidates.push(Candidates({
+                candidateID: z,
+                imageURL: viceGovernorUrlImage[z],
+                firstName: viceGovernorFirstName[z],
+                lastName: viceGovernorLastName[z],
+                voteCount: 0
+            }));
+        }
+    }
+    
+    function temp( bytes32[] vin,
+                bytes32[] firstName, 
+                bytes32[] lastName, 
+                //   uint8[] age,
+                  uint32 numVoters) private{
+            totalRegisteredVoters = numVoters;
+           for(uint8 i =0; i<numVoters; i++){
+             voters[vin[i]].firstName = firstName[i];
+             voters[vin[i]].lastName = lastName[i];
+            //  voters[vin[i]].age = age[i];
+             voters[vin[i]].inComelec =true;
+            
+        }
+    }
     
     //Opens the election and allows voters to vote
-    function openElection() public restricted {
+    function openElection() public restrictedFacilitator {
+        require(!isOver);
+        require(!isOpen);
+        
         isOpen = true;
-        openedDate = now;
+        // openedDate = now;
     }
     
     //Closes the election (election is over and starts finalizing votes)
-    function closeElection() public restricted{
+    function closeElection() public restrictedFacilitator{
+        require(isOpen);
         isOpen = false;
     }
     
-    //get voteCount of a certain presidential candidate
-    function getPresidentialVoteCount(uint index) public view returns(uint) {
-        return presidentialCandidates[index].voteCount;
+    function terminateElection()public restrictedFacilitator{
+        isOver = true;
+        isOpen = false;
     }
     
-    //get voteCount of a certain vice-presidential candidate
-    function getVicePresidentialVoteCount(uint index) public view returns(uint) {
-        return vicePresidentialCandidates[index].voteCount;
+    //get voteCount of a certain governor candidate
+    function getGovernorVoteCount(uint index) public view returns(uint) {
+        return governorCandidates[index].voteCount;
     }
     
+    //get voteCount of a certain vice-governor candidate
+    function getViceGovernorVoteCount(uint index) public view returns(uint) {
+        return viceGovernorCandidates[index].voteCount;
+    }
+    
+    //register voter on votechain
+    function register(bytes32 vin, bytes32 firstName, bytes32 lastName, bytes32 password) public restrictedVoter {
+        require(voters[vin].inComelec);
+        require(!isOpen);
+        require(!voters[vin].registered);
+        require(voters[vin].firstName == firstName);
+        require(voters[vin].lastName == lastName);
+        require(password != "");
+        
+        voters[vin].password = password;
+        voters[vin].registered = true;
+        totalVotechainVoters++;
+    }
+    
+   
     //vote logic
-    function vote(uint8 pIndex, uint8 vpIndex) public electionStatus{
+    function vote(uint8 pIndex, uint8 vpIndex, bytes32 vin, bytes32 password) public  restrictedVoter{
         require(isOpen);
-        require(registeredVoters >= totalVotes);
-        // require(voters[msg.sender].registered);
-        require(!voters[msg.sender].hasVoted);
-        require(pIndex >= 0 && pIndex <5 && vpIndex >=0 && vpIndex<5);
+        require(voters[vin].registered);
+        require(totalVotechainVoters >= totalVotes);
+        require(voters[vin].password == password);
+        require(!voters[vin].hasVoted);
+   
+        governorCandidates[pIndex].voteCount++;
+        viceGovernorCandidates[vpIndex].voteCount++;
         
-        presidentialCandidates[pIndex].voteCount++;
-        vicePresidentialCandidates[vpIndex].voteCount++;
-        
-        voters[msg.sender].chosenPresident = presidentialCandidates[pIndex];
-        voters[msg.sender].chosenvicePresident=vicePresidentialCandidates[vpIndex];
-        
-        voters[msg.sender].hasVoted = true;
+        voters[vin].chosenGovernor = governorCandidates[pIndex];
+        voters[vin].chosenViceGovernor=viceGovernorCandidates[vpIndex];
+        voters[vin].hasVoted = true;
+        voters[vin].dateTimeVoted = now;
         totalVotes++;
     }
     
-    // get current users vote details
-    function getVoterDetails()public view returns (address,string,string,string,string,string,bool,bool,uint32){
+    
+    // get current users voter details
+    function getVoterDetails(bytes32 vin, bytes32 password)public view returns (bytes32,bytes32,uint,bytes32){
+     
+        require(voters[vin].inComelec);
+        require(voters[vin].registered);
+        require(voters[vin].password == password);
         
         return (
-            msg.sender,
-            voters[msg.sender].votersIDNum, 
-            voters[msg.sender].chosenPresident.firstName,
-            voters[msg.sender].chosenPresident.lastName,
-            voters[msg.sender].chosenvicePresident.firstName,
-            voters[msg.sender].chosenvicePresident.lastName,
-            voters[msg.sender].registered,
-            voters[msg.sender].hasVoted,
-            voters[msg.sender].dateTime
+            voters[vin].lastName,
+            voters[vin].firstName, 
+            voters[vin].dateTimeVoted,
+            voters[vin].txHash
             );
     }
     
-    modifier restricted {
+    // get chosen candidate of a voter
+    function getChosenCandidates(bytes32 vin, bytes32 password)public view returns (bytes32,bytes32,bytes32,bytes32,bytes32,bytes32){
+        require(voters[vin].hasVoted);
+        require(voters[vin].password == password);
+        
+        
+        return (
+            voters[vin].chosenGovernor.firstName,
+            voters[vin].chosenGovernor.lastName,
+            voters[vin].chosenGovernor.imageURL,
+            voters[vin].chosenViceGovernor.firstName,
+            voters[vin].chosenViceGovernor.lastName,
+            voters[vin].chosenViceGovernor.imageURL
+          
+            );
+    }
+    
+    function setTxHash(bytes32 vin, bytes32 password, bytes32 txHash) public  restrictedVoter{
+            require(voters[vin].hasVoted);
+            require(voters[vin].password == password);
+            
+            voters[vin].txHash = txHash;
+    }
+    modifier restrictedVoter {
+        require(msg.sender == electionVoter);
+        _;
+    }
+    
+    modifier restrictedFacilitator {
         require(msg.sender == electionFacilitator);
         _;
     }
     
-    modifier electionStatus{
-        require(isOpen);
-        _;
-    }
+
 }
 
 

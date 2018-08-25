@@ -140,11 +140,11 @@ class VoteTrackingForm extends Component {
         if(this.state.tracked){
             printButton = <div className="vote-track-buttons">
                               <div className="form-group text-center">
-                                <a href="#" className="form-check"
+                                <a className="form-check"
                                 onClick={this.printVoteDetails}>Print</a>
                               </div>
                               <div className="form-group text-center">
-                                <a href="#" className="form-check"
+                                <a className="form-check"
                                 onClick={event => {this.clear(event)}}>Back</a>
                               </div>
                           </div>
@@ -155,9 +155,9 @@ class VoteTrackingForm extends Component {
                 <div className="form-content">
                     <form action="" onSubmit={event => {this.onSubmit(event, this.state.vin, this.state.password)}}>
                         <div className="form-group">
-                            <label htmlFor="idVIN" className="form-label">Input Voters ID Number:</label>
+                            <label htmlFor="idVIN2" className="form-label">Input Voters ID Number:</label>
                             <input className="form-input" 
-                                   type="text" id="idVIN" 
+                                   type="text" id="idVIN2" 
                                    name="id" autoComplete="off" 
                                    placeholder="Voters ID VIN" 
                                    required
@@ -165,10 +165,10 @@ class VoteTrackingForm extends Component {
                                    onChange = {event => this.setState({vin: event.target.value})}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password" className="form-label">Password:</label>
+                            <label htmlFor="password2" className="form-label">Password:</label>
                             <input className="form-input"
                                    type="password" 
-                                   id="password"
+                                   id="password2"
                                    name="password" autoComplete="off" 
                                    placeholder="Password" 
                                    required 

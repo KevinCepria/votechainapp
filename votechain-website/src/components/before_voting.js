@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import RegisterForm from './register_form';
 import logo from '../assets/img/votechain_logo2.png';
+import halalan from '../assets/img/halalan-banner.png';
 
 class BeforeVoting extends Component {
    
     componentDidMount(){
           new window.Countdown({
             elementId: 'countdown',
-            deadline: 'Tue, 18 Aug 2018 8:30:00',
+            deadline: 'Tue, 18 Aug 2023 10:00:00',
             timeZone: 'GMT+08:00',
             units: [' days', ' hrs', ' mins', ' sec'],
             hide: [false, false, false, false]
@@ -26,10 +27,15 @@ class BeforeVoting extends Component {
                           <div className="row">
                               <div className="col-3-of-5">
                                   <div className="message">
-                                      <img src="https://halalan2016ph.files.wordpress.com/2015/06/halalan2016-banner1.png" alt="" className="message__image"/>
-                                      <h2 className="heading-secondary text-dark">Voting Starts on August 18, 2018 12:00pm</h2>
+                                      <div className="row">
+                                          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/Talavera_Nueva_Ecija.png/249px-Talavera_Nueva_Ecija.png" alt="" className="message__image"/>
+                                          <img src={halalan} alt="" className="message__image"/>
+                                          <img src="http://sanjosecity-ne.gov.ph/content/img/1518070856-sjc-seal.png" alt="" className="message__image"/>
+                                      </div>
+                                      <h2 className="heading-secondary text-dark">Voting Starts on August 18, 2023 12:00pm</h2>
                                       <div  id="countdown" className="countdown">
                                       </div>
+                                      
                                   </div>
                               </div>
                               <div className="col-2-of-5">
